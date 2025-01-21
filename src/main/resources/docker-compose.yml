@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql_shopping_cart
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'CAPCO_SHOPPING_CART'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3309:3306'
+    expose:
+      - '3309'
+    volumes:
+      - my-db:/var/lib/mysql
+# Names our volume
+volumes:
+  my-db:
