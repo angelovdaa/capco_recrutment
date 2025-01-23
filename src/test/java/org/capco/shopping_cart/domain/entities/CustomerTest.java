@@ -15,7 +15,7 @@ public class CustomerTest {
     @Test
     public void testValidNaturalCustomer() {
         // Given
-        NaturalCustomer customer = new NaturalCustomer(UUIDGenerator.generate(),"Dimitar", "Angelov");
+        NaturalCustomer customer = new NaturalCustomer(UUIDGenerator.generate(), "Dimitar", "Angelov");
         // Then
         assertThat(customer.getFirstName()).isEqualTo("Dimitar");
         assertThat(customer.getLastName()).isEqualTo("Angelov");
@@ -23,13 +23,13 @@ public class CustomerTest {
 
     @Test
     public void testInvalidNaturalCustomer() {
-        assertThrows(IllegalArgumentException.class, () ->  new NaturalCustomer(UUIDGenerator.generate(),"Dimitar", ""));
+        assertThrows(IllegalArgumentException.class, () -> new NaturalCustomer(UUIDGenerator.generate(), "Dimitar", ""));
     }
 
     @Test
     public void testValidLegalCustomer() {
         // Given
-        LegalCustomer customer = new LegalCustomer(UUIDGenerator.generate(),"Capco LTD.", "12345678912345", "123456789");
+        LegalCustomer customer = new LegalCustomer(UUIDGenerator.generate(), "Capco LTD.", "12345678912345", "123456789");
 
         assertThat(customer.getCompanyName()).isEqualTo("Capco LTD.");
         assertThat(customer.getVATNumber()).isEqualTo("123456789");
@@ -39,7 +39,7 @@ public class CustomerTest {
     @Test
     public void testValidLegalCustomer_NoVATNumber() {
         // Given
-        LegalCustomer customer = new LegalCustomer(UUIDGenerator.generate(),"Capco LTD.", "12345678912345", null);
+        LegalCustomer customer = new LegalCustomer(UUIDGenerator.generate(), "Capco LTD.", "12345678912345", null);
         // Then
         assertThat(customer.getCompanyName()).isEqualTo("Capco LTD.");
         assertThat(customer.getSiren()).isEqualTo("12345678912345");
@@ -51,7 +51,7 @@ public class CustomerTest {
         // Given
         String companyName = null;
         // Then
-        assertThrows(IllegalArgumentException.class, () ->  new LegalCustomer(UUIDGenerator.generate(),companyName, "12345678912345", "123456789"));
+        assertThrows(IllegalArgumentException.class, () -> new LegalCustomer(UUIDGenerator.generate(), companyName, "12345678912345", "123456789"));
     }
 
 

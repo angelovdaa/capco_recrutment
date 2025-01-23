@@ -1,9 +1,12 @@
 package org.capco.shopping_cart.domain.fixtures;
 
-import org.capco.shopping_cart.domain.entities.id.UUIDGenerator;
 import org.capco.shopping_cart.domain.entities.customer.Customer;
 import org.capco.shopping_cart.domain.entities.customer.LegalCustomer;
 import org.capco.shopping_cart.domain.entities.customer.NaturalCustomer;
+import org.capco.shopping_cart.domain.entities.id.UUIDGenerator;
+
+import java.util.List;
+import java.util.Random;
 
 public class CustomerFixture {
 
@@ -22,5 +25,11 @@ public class CustomerFixture {
         return new LegalCustomer(id, companyName, siren, VATNumber);
     }
 
+    public static Customer random() {
+        List<Customer> customerList = List.of(CustomerFixture.aNaturalCustomer(), CustomerFixture.aLegalCustomer());
+        Random random = new Random();
+        return customerList.get(random.nextInt(customerList.size()));
+
+    }
 
 }

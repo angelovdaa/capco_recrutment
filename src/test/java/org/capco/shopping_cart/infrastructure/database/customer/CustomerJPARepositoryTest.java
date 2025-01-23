@@ -1,10 +1,8 @@
-package org.capco.shopping_cart.infrastructure.database;
+package org.capco.shopping_cart.infrastructure.database.customer;
 
 import org.assertj.core.api.Assertions;
 import org.capco.shopping_cart.domain.entities.customer.CustomerType;
 import org.capco.shopping_cart.domain.entities.id.UUIDGenerator;
-import org.capco.shopping_cart.infrastructure.database.customer.CustomerJPA;
-import org.capco.shopping_cart.infrastructure.database.customer.CustomerJPARepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ public class CustomerJPARepositoryTest {
 
     @Test
     void save_shouldReturnCustomerSaved() {
-        // Given a dirty recor (no validation logic in repository)
+        // Given a dirty record (no validation logic in repository)
         CustomerJPA expected = new CustomerJPA();
         expected.setId(UUIDGenerator.generate());
         expected.setFirstName("Doe");
@@ -53,8 +51,8 @@ public class CustomerJPARepositoryTest {
     @Test
     void find_shouldReturnCustomerByNameOrCompanyName() {
         // Given
-        String expectedID1 ="5e18367a-1eb3-4b91-b87a-44cd210ef7ba";
-        String expectedID2 ="939c0a28-c407-4ce3-b661-d96a412a3d29";
+        String expectedID1 = "5e18367a-1eb3-4b91-b87a-44cd210ef7ba";
+        String expectedID2 = "939c0a28-c407-4ce3-b661-d96a412a3d29";
         // WHen
         List<CustomerJPA> actual = customerJPARepository.findByLastNameContainsIgnoreCaseOrCompanyNameContainsIgnoreCase("angel", "capc");
         Set<String> actualIds = actual.stream().map(CustomerJPA::getId).collect(Collectors.toSet());
@@ -64,9 +62,9 @@ public class CustomerJPARepositoryTest {
 
 
     @Test
-    void find_shouldReturnCustomerBySiren(){
+    void find_shouldReturnCustomerBySiren() {
         // Given
-        String expectedID ="939c0a28-c407-4ce3-b661-d96a412a3d29";
+        String expectedID = "939c0a28-c407-4ce3-b661-d96a412a3d29";
         // When
         List<CustomerJPA> actual = customerJPARepository.findBySiren("00000000000001");
         // Then

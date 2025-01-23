@@ -1,14 +1,17 @@
 package org.capco.shopping_cart.infrastructure.database.customer;
 
 import org.capco.shopping_cart.domain.entities.customer.Customer;
-import org.capco.shopping_cart.domain.use_cases.customer.CustomerPort;
 import org.capco.shopping_cart.domain.entities.customer.CustomerType;
 import org.capco.shopping_cart.domain.entities.customer.LegalCustomer;
 import org.capco.shopping_cart.domain.entities.customer.NaturalCustomer;
+import org.capco.shopping_cart.domain.use_cases.customer.CustomerPort;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class CustomerDatabaseAdapter implements CustomerPort {
 
     private final CustomerJPARepository customerJPARepository;
@@ -18,18 +21,20 @@ public class CustomerDatabaseAdapter implements CustomerPort {
     }
 
     @Override
-    public List<Customer> getByName(String name) {
+    public List<Customer> getByNameContainsIgnoreCase(String name) {
         List<CustomerJPA> customerJPAs = customerJPARepository.findByLastNameContainsIgnoreCaseOrCompanyNameContainsIgnoreCase(name, name);
         return customerJPAs.stream().map(this::toCustomer).collect(Collectors.toList());
 
     }
 
     @Override
-    public List<LegalCustomer> getBySiren(String siren) {
-        return customerJPARepository.findBySiren(siren)
-                .stream()
-                .map(customerJPA -> (LegalCustomer) toCustomer(customerJPA))
-                .collect(Collectors.toList());
+    public Optional<Customer> getBySiren(String siren) {
+        List<CustomerJPA> customerJPAs = customerJPARepository.findBySiren(siren);
+        if (customerJPAs.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(toCustomer(customerJPAs.get(0)));
+
     }
 
     @Override
@@ -39,10 +44,8 @@ public class CustomerDatabaseAdapter implements CustomerPort {
 
     private Customer toCustomer(CustomerJPA customerJPA) {
         if (CustomerType.LEGAL.equals(customerJPA.getCustomerType())) {
-//            LegalCustomerJPA legalCustomerJPA = (LegalCustomerJPA) customerJPA;
-            return new LegalCustomer(customerJPA.getId(), customerJPA.getSiren(), customerJPA.getCompanyName(), customerJPA.getVATNumber());
+            return new LegalCustomer(customerJPA.getId(), customerJPA.getCompanyName(), customerJPA.getSiren(), customerJPA.getVATNumber());
         } else if (CustomerType.NATURAL.equals(customerJPA.getCustomerType())) {
-//            NaturalCustomerJPA naturalCustomerJPA = (NaturalCustomerJPA) customerJPA;
             return new NaturalCustomer(customerJPA.getId(), customerJPA.getFirstName(), customerJPA.getLastName());
         } else throw new IllegalArgumentException("Unknown CustomerJpa type");
     }

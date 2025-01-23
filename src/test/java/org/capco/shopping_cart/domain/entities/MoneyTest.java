@@ -14,32 +14,29 @@ public class MoneyTest {
     private final Currency EURO = Currency.getInstance("EUR");
 
     @Test
-    void additionTest() {
+    void test_AddMoney() {
         // Given
         Random rndNumber = new Random();
         double d1 = rndNumber.nextDouble();
         double d2 = rndNumber.nextDouble();
-        BigDecimal amount1 = new BigDecimal(d1);
-        BigDecimal amount2 = new BigDecimal(d2);
-        Money money1 = Money.euros(amount1);
-        Money money2 = Money.euros(amount2);
+        Money money1 = Money.euros(d1);
+        Money money2 = Money.euros(d2);
         // When
-        Money actual = Money.euros(money1.getAmount().add(money2.getAmount()));
+        Money actual = Money.euros(money1.getAmount().add(money2.getAmount()).doubleValue());
         Money expected = money1.add(money2);
         // Then
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    void multiplicationTest() {
+    void test_multiplyMoneyByFactor() {
         // Given
         Random rndNumber = new Random();
         double d1 = rndNumber.nextDouble();
         double factor = rndNumber.nextDouble();
-        BigDecimal amount1 = new BigDecimal(d1);
-        Money money1 =  Money.euros(amount1);
+        Money money1 = Money.euros(d1);
         // When
-        Money actual = Money.euros(money1.getAmount().multiply(BigDecimal.valueOf(factor)));
+        Money actual = Money.euros(money1.getAmount().multiply(BigDecimal.valueOf(factor)).doubleValue());
         Money expected = money1.multiply(factor);
         // Then
         assertThat(actual).isEqualTo(expected);

@@ -9,7 +9,7 @@ public class NaturalCustomer implements Customer {
     private final String lastName;
 
     public NaturalCustomer(String id, String firstName, String lastName) {
-        if(lastName.isBlank()){
+        if (lastName.isBlank()) {
             throw new IllegalArgumentException("Customer name is empty");
         }
         this.id = id;
@@ -32,6 +32,11 @@ public class NaturalCustomer implements Customer {
     @Override
     public CustomerType getCustomerType() {
         return CustomerType.NATURAL;
+    }
+
+    @Override
+    public String toDescription() {
+        return "Customer: " + lastName;
     }
 
     @Override

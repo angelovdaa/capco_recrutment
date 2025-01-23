@@ -7,7 +7,7 @@ import java.util.Objects;
 public class LegalCustomer implements Customer {
 
     private static final String SIREN_ID_REGEX = "[0-9]{14}";
-    private static final String VAT_NUMBER_REGEX= "[0-9]{9}";
+    private static final String VAT_NUMBER_REGEX = "[0-9]{9}";
 
     private final String id;
 
@@ -18,13 +18,13 @@ public class LegalCustomer implements Customer {
 
 
     public LegalCustomer(String id, String companyName, String siren, String VATNumber) {
-        if(!siren.matches(SIREN_ID_REGEX)){
+        if (!siren.matches(SIREN_ID_REGEX)) {
             throw new IllegalArgumentException("SIREN must be a 14 digit number");
         }
-        if(!Strings.isBlank(VATNumber) && !VATNumber.matches(VAT_NUMBER_REGEX)){
+        if (!Strings.isBlank(VATNumber) && !VATNumber.matches(VAT_NUMBER_REGEX)) {
             throw new IllegalArgumentException("VAT number must be a 9 digit number");
         }
-        if(Strings.isBlank(companyName)){
+        if (Strings.isBlank(companyName)) {
             throw new IllegalArgumentException("Legal form is empty");
         }
         this.id = id;
@@ -53,6 +53,11 @@ public class LegalCustomer implements Customer {
     @Override
     public CustomerType getCustomerType() {
         return CustomerType.LEGAL;
+    }
+
+    @Override
+    public String toDescription() {
+        return "Company: " + companyName;
     }
 
     @Override

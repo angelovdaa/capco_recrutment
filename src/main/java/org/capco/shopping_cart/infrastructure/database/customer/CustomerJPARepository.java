@@ -9,7 +9,6 @@ import java.util.UUID;
 @Repository
 public interface CustomerJPARepository extends JpaRepository<CustomerJPA, UUID> {
 
-
     List<CustomerJPA> findByLastNameContainsIgnoreCaseOrCompanyNameContainsIgnoreCase(String lastName, String companyName);
 
     List<CustomerJPA> findBySiren(String siren);

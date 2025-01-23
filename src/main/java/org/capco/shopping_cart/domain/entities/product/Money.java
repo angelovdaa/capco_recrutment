@@ -15,15 +15,19 @@ public class Money {
     private final Currency currency;
     private final BigDecimal amount;
 
-    public static Money euros(BigDecimal amount) {
-        return new Money(amount, EUR);
+    public static Money euros(double amount) {
+        return Money.fromAmountCurrency(amount, EUR);
+    }
+
+    public static Money fromAmountCurrency(double amount, Currency currency) {
+        return new Money(BigDecimal.valueOf(amount), currency);
     }
 
     public Money(BigDecimal amount, Currency currency) {
         this(amount, currency, DEFAULT_ROUNDING);
     }
 
-    Money(BigDecimal amount, Currency currency, RoundingMode rounding) {
+    private Money(BigDecimal amount, Currency currency, RoundingMode rounding) {
         this.currency = currency;
         this.amount = amount.setScale(currency.getDefaultFractionDigits(), rounding);
     }

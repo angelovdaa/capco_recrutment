@@ -36,8 +36,8 @@ public class ShoppingCartTest {
         // Given
         ShoppingCart shoppingCart = new ShoppingCart(CustomerFixture.aLegalCustomer());
         Product product = ProductFixture.aSmartphonePremium();
-        int expectedQuantity1= 1;
-        int expectedQuantity2= 2;
+        int expectedQuantity1 = 1;
+        int expectedQuantity2 = 2;
         int totalExpectedQuantity = expectedQuantity1 + expectedQuantity2;
         // When
         shoppingCart.addProduct(product, expectedQuantity1);

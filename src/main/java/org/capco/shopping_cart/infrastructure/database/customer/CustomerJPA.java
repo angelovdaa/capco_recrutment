@@ -12,7 +12,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "customer",uniqueConstraints= {
+@Table(name = "customer", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"siren"})
 })
 public class CustomerJPA {
@@ -29,7 +29,7 @@ public class CustomerJPA {
 
     private String VATNumber;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @NotNull
     private CustomerType customerType;
 

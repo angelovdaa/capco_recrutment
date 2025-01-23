@@ -3,23 +3,21 @@ package org.capco.shopping_cart.infrastructure.database.product;
 import org.capco.shopping_cart.domain.entities.product.ProductType;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="product",uniqueConstraints= {
-        @UniqueConstraint(columnNames = {"productId"})
-})
+@Table(name = "product")
 public class ProductJPA {
     @Id
     private String id;
-
-    private  String name;
-
-    private  String productId;
-
-    private  ProductType productType;
+    private String name;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ProductType productType;
     private String description;
 
     public String getId() {
@@ -38,13 +36,6 @@ public class ProductJPA {
         this.name = name;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
 
     public ProductType getProductType() {
         return productType;
